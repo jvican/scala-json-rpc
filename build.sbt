@@ -1,5 +1,5 @@
 lazy val commonSettings = Seq(
-    scalaVersion := "2.11.8",
+    scalaVersion := "2.12.3",
     scalacOptions in Compile ++= Seq(
       "-target:jvm-1.8",
       "-encoding",
@@ -28,7 +28,7 @@ lazy val publishSettings = Seq(
   startYear := Some(2015),
   description := "A Scala library providing types and JSON format typeclass instances for JSON-RPC 2.0 messages along with support for marshalling application level commands, responses and notifications via JSON-RPC 2.0.",
   licenses += "Apache-2.0" -> url("https://www.apache.org/licenses/LICENSE-2.0.txt"),
-  organization := "com.dhpcs",
+  organization := "me.vican.jorge",
   organizationHomepage := Some(url("https://www.dhpcs.com/")),
   organizationName := "dhpcs",
   developers := List(
@@ -44,7 +44,7 @@ lazy val publishSettings = Seq(
       connection = "scm:git:https://github.com/dhpcs/scala-json-rpc.git",
       devConnection = Some("scm:git:git@github.com:dhpcs/scala-json-rpc.git")
     )),
-  bintrayOrganization := Some("dhpcs"),
+  bintrayRepository := "releases",
   bintrayPackageLabels := Seq("scala", "json-rpc")
 )
 
@@ -53,7 +53,7 @@ lazy val noopPublishSettings = Seq(
   publishLocal := {}
 )
 
-lazy val playJson = "com.typesafe.play" %% "play-json" % "2.5.12"
+lazy val playJson = "com.typesafe.play" %% "play-json" % "2.6.3"
 
 lazy val scalaTest = "org.scalatest" %% "scalatest" % "3.0.1"
 

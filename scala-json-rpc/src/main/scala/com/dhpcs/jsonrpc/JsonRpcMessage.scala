@@ -2,7 +2,6 @@ package com.dhpcs.jsonrpc
 
 import com.dhpcs.jsonrpc.JsonRpcMessage._
 import com.dhpcs.jsonrpc.JsonRpcMessage.ParamsOps._
-import play.api.data.validation.ValidationError
 import play.api.libs.functional.syntax._
 import play.api.libs.json.Json.JsValueWrapper
 import play.api.libs.json.Reads.verifying
@@ -61,7 +60,7 @@ object JsonRpcMessage {
       Reads {
         case jsArray: JsArray  => JsSuccess(ArrayParams(jsArray))
         case jsValue: JsObject => JsSuccess(ObjectParams(jsValue))
-        case _                 => JsError(ValidationError(Seq("error.expected.jsarray")))
+        case _                 => JsError(JsonValidationError(Seq("error.expected.jsarray")))
       },
       Writes {
         case ArrayParams(value)  => value
@@ -230,7 +229,7 @@ object JsonRpcResponseError {
     error = Some(JsString(exception.getMessage))
   )
 
-  def invalidRequest(errors: Seq[(JsPath, Seq[ValidationError])]): JsonRpcResponseError = rpcError(
+  def invalidRequest(errors: Seq[(JsPath, Seq[JsonValidationError])]): JsonRpcResponseError = rpcError(
     InvalidRequestCode,
     message = "Invalid Request",
     meaning = "The JSON sent is not a valid Request object.",
@@ -244,7 +243,7 @@ object JsonRpcResponseError {
     error = Some(JsString(s"""The method "$method" is not implemented."""))
   )
 
-  def invalidParams(errors: Seq[(JsPath, Seq[ValidationError])]): JsonRpcResponseError = rpcError(
+  def invalidParams(errors: Seq[(JsPath, Seq[JsonValidationError])]): JsonRpcResponseError = rpcError(
     InvalidParamsCode,
     message = "Invalid params",
     meaning = "Invalid method parameter(s).",
